@@ -20,10 +20,9 @@
     "@typescript-eslint"
   ],
   "rules": {
-    "quotes": [1, "single"],
+    "quotes": [1, "single", { "allowTemplateLiterals": true }],
     "semi": [1, "never"],
-    "indent": [1, 2],
-    "jsx-quotes": 1,
+    "indent": [1, 2, { "SwitchCase": 1 }],
     "space-before-blocks": 1,
     "space-before-function-paren": [1, {
       "anonymous": "always",
