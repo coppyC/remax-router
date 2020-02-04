@@ -5,7 +5,7 @@ import { useState } from 'react'
 
 
 /** 创建 onClick 页面链接 */
-export const createLink = (url: string, query?: any) =>
+const createLink = (url: string, query?: any) =>
   () => HackRouter.goTo(url, query)
 
 /** 重定向链接 */
@@ -32,4 +32,4 @@ function useHackQuery<Q = any>(): Q {
   return hackQuery
 }
 
-export { HackQuery, HackRouter, createLink as createLink, useHackQuery }
+export { HackQuery, HackRouter, createLink, useHackQuery }
