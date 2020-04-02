@@ -17,7 +17,9 @@ interface RouteConfig {
    * - none: 不进行任何页面跳转操作
    */
   type: 'navigate' | 'redirect' | 'reLaunch' | 'switchTab' | 'none'
+  /** 页面路由 */
   url: string
+  /** 查询参数 */
   query?: any
 }
 

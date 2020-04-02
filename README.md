@@ -22,21 +22,30 @@ import React from 'react'
 import { View } from 'remax/wechat'
 import { createLink } from 'remax-router'
 export default () {
+  const goToPage2 = createLink('./page2', {
+    onSelect(type) {
+      console.log('you choose ' + type)
+    }
+  })
   return (
-    <View onClick={createLink('./page2', { a: 1, b: 2 })}>go to page2<View>
+    <View onClick={goToPage2}>go to page2<View>
   )
 }
 ```
 ```jsx
 // page2.jsx
-import {createLink} from 'remax-router'
 import { View } from 'remax/wechat'
 import { useHackQuery } from 'remax-router'
 export default () {
   const query = useHackQuery()
-  console.log(typeof query.a) // 'number'
   return (
-    <View>a is {query.a}, and b is {query.b}.<View>
+    <View>
+      ['a', 'b', 'c', 'd'].map(item => (
+        <View key={item} onClick={() => query.onSelect(item)}>
+          {item}
+        </View>
+      ))
+    </View>
   )
 }
 ```
@@ -52,6 +61,21 @@ HackRouter.plugins.add(config => {
   if (!isAuthor) // 403
     config.type = 'none' // 没有权限，不进行页面跳转
 })
+```
+
+# special
+为了处理和解析正确的类型，对路由参数的纯数字字符串做了处理
+```
+{ n: 1 }
+对应 n=1
+
+{ n: '1' }
+对应 n='1'
+```
+其它的字符串不变
+```
+{ n: 'abc' }
+对应 n=abc
 ```
 
 # remax version
