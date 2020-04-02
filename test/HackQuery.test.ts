@@ -38,6 +38,23 @@ describe('number type', () => {
   })
 })
 
+describe('encode & decode', () => {
+  it('key with encode', () => {
+    const originalQuery = { '/': 1 }
+    const queryStr = HackQuery.stringify(originalQuery)
+    expect(queryStr).toBe(`${encodeURIComponent('/')}=1`)
+    const query = HackQuery.parse(queryStr)
+    expect(Object.keys(query)).toEqual(['/'])
+  })
+  it('value with encode', () => {
+    const originalQuery = { a: '/' }
+    const queryStr = HackQuery.stringify(originalQuery)
+    expect(queryStr).toBe(`a=${encodeURIComponent('/')}`)
+    const query = HackQuery.parse(queryStr)
+    expect(query.a).toEqual('/')
+  })
+})
+
 describe('string type', () => {
   it('stringify and parse correct', () => {
     const originalQuery = { x: 'a', y: '' }
@@ -96,19 +113,19 @@ describe('null type', () => {
   })
 })
 
-describe('hack type', () => {
+describe('hack type default value', () => {
   it('function type', () => {
     const originalQuery = { onCall() {} }
     const queryStr = HackQuery.stringify(originalQuery)
-    expect(decodeURIComponent(queryStr)).toMatch(/onCall=<function:\d+>/)
+    expect(queryStr).toMatchSnapshot()
     const query = HackQuery.parse(queryStr)
-    expect(query).toEqual(originalQuery)
+    expect(typeof query.onCall).toBe('function')
   })
   it('symbol', () => {
     const originalQuery = { x: Symbol() }
     const queryStr = HackQuery.stringify(originalQuery)
-    expect(decodeURIComponent(queryStr)).toMatch(/x=<symbol:\d+>/)
+    expect(queryStr).toMatchSnapshot()
     const query = HackQuery.parse(queryStr)
-    expect(query).toEqual(originalQuery)
+    expect(typeof query.x).toBe('symbol')
   })
 })

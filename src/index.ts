@@ -1,7 +1,6 @@
 import HackQuery from './HackQuery'
 import HackRouter from './HackRouter'
-import { useQuery } from 'remax'
-import { useState } from 'react'
+import { useQuery, usePageInstance } from 'remax'
 
 
 /** 创建 onClick 页面链接 */
@@ -25,11 +24,11 @@ createLink.back = (delta?: number) =>
   () => HackRouter.goBack(delta)
 
 function useHackQuery<Q = any>(): Q {
-  const query: any = useQuery()
-  const [hackQuery] = useState<any>(() => (
-    HackQuery.parseQueryObj(query)
-  ))
-  return hackQuery
+  const page = usePageInstance()
+  const query = useQuery()
+  if (!page.$hackQuery)
+    page.$hackQuery = HackQuery.parseQueryObj(query)
+  return page.$hackQuery
 }
 
 export { HackQuery, HackRouter, createLink, useHackQuery }

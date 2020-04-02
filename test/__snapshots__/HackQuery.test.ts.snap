@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`hack type default value function type 1`] = `"onCall=%3Cfunction%3A1%3E"`;
+
+exports[`hack type default value symbol 1`] = `"x=%3Csymbol%3A2%3E"`;
