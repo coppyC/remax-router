@@ -1,4 +1,4 @@
-# 0.0.2
+# 0.0.3
 - support key encode
 - won't rewrite original query
 
