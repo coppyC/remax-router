@@ -21,14 +21,14 @@ yarn add remax-router
 import React from 'react'
 import { View } from 'remax/wechat'
 import { createLink } from 'remax-router'
-export default () {
+export default () => {
   const goToPage2 = createLink('./page2', {
     onSelect(type) {
       console.log('you choose ' + type)
     }
   })
   return (
-    <View onClick={goToPage2}>go to page2<View>
+    <View onClick={goToPage2}>go to page2</View>
   )
 }
 ```
@@ -36,15 +36,15 @@ export default () {
 // page2.jsx
 import { View } from 'remax/wechat'
 import { useHackQuery } from 'remax-router'
-export default () {
+export default () => {
   const query = useHackQuery()
   return (
     <View>
-      ['a', 'b', 'c', 'd'].map(item => (
+      {['a', 'b', 'c', 'd'].map(item => (
         <View key={item} onClick={() => query.onSelect(item)}>
           {item}
         </View>
-      ))
+      ))}
     </View>
   )
 }
